@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "433679534417",
+    "firebase_url": "https://air-animal-production.firebaseio.com",
+    "project_id": "air-animal-production",
+    "storage_bucket": "air-animal-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433679534417:android:64b0bd9a7707e39e",
+        "android_client_info": {
+          "package_name": "com.shieldwatch.airanimal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433679534417-mrnmjnbb2l2ed7mta4i1r4nkefqim7mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtpzdwYJlyEsjDD4r4quPvV489sF2KNT4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

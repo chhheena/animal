@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>103778970899-h24ob5s1ftnhdjb64uu487pb42hnv0ar.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.103778970899-h24ob5s1ftnhdjb64uu487pb42hnv0ar</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBdh-BsALssjuIZw4eFIlixG-1ZT18XQig</string>
+	<key>GCM_SENDER_ID</key>
+	<string>103778970899</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.airanimal.app</string>
+	<key>PROJECT_ID</key>
+	<string>air-animal-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>air-animal-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:103778970899:ios:e8b9ce15323d001f</string>
+	<key>DATABASE_URL</key>
+	<string>https://air-animal-dev.firebaseio.com</string>
+</dict>
+</plist>

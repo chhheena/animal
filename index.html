@@ -1,0 +1,1181 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>Air Animal</title>
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="css/style.css" media="all">
+  <!-- Include the jQuery Datepicker css-->
+  <link rel="stylesheet" href="css/jquery.mobile.datepicker.css" media="all">
+  <link rel="stylesheet" href="css/jquery.mobile.datepicker.theme.css" media="all">
+  <link rel="stylesheet" href="css/owl.carousel.css" media="all">
+  <!-- Fonts Style -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+  <!--Icon Font css-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Include the jQuery library -->
+  <script src="js/jquery-1.11.3.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
+  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> -->
+  <script src="js/jquery.ui.touch-punch.min.js"></script>
+  <!-- Include Dragend jQuery -->
+  <script src="js/jquery.touchSwipe.js"></script>
+  <!-- Include the jQuery Datepicker -->
+  <script src="js/datepicker.js"></script>
+  <script src="js/jquery.mobile.datepicker.js"></script>
+  <script src="cordova.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc082fCt_9glV0jzqMLF7ax2U3MUN3BZg"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/custom.js"></script>
+
+
+  <script>
+  $(function() {		
+		//Menu
+		$("#menu").panel().enhanceWithin();		
+		// Date Picker
+		//$( ".date-input-css" ).datepicker();
+
+		//Keep track of how many swipes
+			 var count=0;
+			 
+	});
+	
+	// Set Panel height same as device height	
+	$(window).load(function(){
+		setTimeout(function (){
+			$('.back-arrow').click(function(){
+			$('.ui-panel').css({minHeight: $(document).height()});
+			});
+		}.bind(this),500);
+	});
+  </script>
+</head>
+<body>
+
+
+<!-- Login Screen -->
+	<div data-role="page" id="login" class="login-page">
+    	<div data-role="main" class="ui-content">
+        	<!-- Logo -->
+        	<div class="brand">
+        	<a href="#login"><img src="images/air-animal-logo.png" alt="Air Animal" title="Air Animal" /></a>
+        	</div>
+            <!-- Logo Ends -->
+            
+            <div class="login-form-container">
+			<form name="login-form" onsubmit="return false;" novalidate>
+        	<input name="username" id="l_username" value="" type="email" placeholder="Username">
+            <span class="error-message"></span>
+            <input name="password" id="l_password" value="" type="password" placeholder="Password">
+            <span class="error-message"></span>
+            <button class="ui-btn ui-corner-all login-button" onClick="login()">Login</button>            
+            </form>
+            <a href="#forgot-password" class="forgot-password-link">Forgot password?</a>
+        	</div>
+    	</div>
+   </div> 
+<!-- Login Screen -->
+<!-- Forgot password Screen -->
+	<div data-role="page" id="forgot-password" class="login-page">
+    	<div data-role="main" class="ui-content">
+        	<!-- Logo -->
+        	<div class="brand">
+        	<a href="#login"><img src="images/air-animal-logo.png" alt="Air Animal" title="Air Animal" /></a>
+        	</div>
+            <!-- Logo Ends -->
+            
+            <div class="login-form-container">
+			<form name="forgot-password-form" onsubmit="return false;" novalidate>
+        	<input name="username" value="" type="email" placeholder="Email">
+            <span class="error-message"></span>
+            <button class="ui-btn ui-corner-all login-button" onClick="forgotPassword()">Submit</button>            
+            </form>
+            <a href="#" class="forgot-password-link">Type in your email address and we send you a password reset link.</a>
+        	</div>
+    	</div>
+   </div> 
+<!-- Forgot password Screen -->
+<!-- Dashboard -->
+<div data-role="page" id="home"> 
+    <!-- Header -->
+    <div data-role="header"> <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+    <h1>Dashboard</h1>
+  </div>
+    <!-- body -->
+    <div data-role="main" class="dashboard-main ui-content">
+    <div class="pos-relative">
+	<img src="images/circle-loading.gif" alt="" title="" class="loader" id="pet_loader" style="display:none;"/>
+    <h1 class="pet-transit">Pets In Transit</h1>
+    <div id="owl-demo" class="thumbnails">
+       
+      </div>
+     </div>
+      <!--Intransit top part-->
+      <div class="pos-relative" style="z-index: -1;">
+		<!--img src="images/circle-loading.gif" alt="" title="" class="loader1" style="display:none;"/-->
+      <div class="google-popup-address">
+        <ul>
+          
+          </ul>
+        </div>
+    </div>
+        <!--Intransit top part-->
+        
+        <!--Intransit Detail part-->
+        <div class="intransit-detail-main">
+          <ul class="intransit-detail-list">
+            <!-- <li class="active">
+            	<div class="intransit-detail-list-inner">
+                <span class="via-airport-from-name">MFO</span>
+                <span class="via-airport-name"><small>via</small>
+                  DAB</span>
+              </div>    
+              <div class="via-detail">
+                <span class="via-name">Daytona Beach, florida</span>
+                <span class="via-date">Date: <strong>Oct 22</strong></span>
+                <span class="via-date">Time: <strong>02:30 am</strong></span>
+                <span class="via-date">Flight: <strong>P472 8</strong></span>
+              </div>
+            </li>
+            <li >
+              <div class="intransit-detail-list-inner">
+                <span class="via-airport-name"><small>via</small>
+                  DAB</span>
+              </div>    
+              <div class="via-detail">
+                <span class="via-name">Daytona Beach, florida</span>
+                <span class="via-date">Date: <strong>Oct 22</strong></span>
+                <span class="via-date">Time: <strong>02:30 am</strong></span>
+                <span class="via-date">Flight: <strong>P472 8</strong></span>
+              </div>
+            </li>
+            <li>
+              <div class="intransit-detail-list-inner">
+                <span class="via-airport-name"><small>via</small>
+                  DAB</span>
+              </div>    
+              <div class="via-detail">
+                <span class="via-name">Daytona Beach, florida</span>
+                <span class="via-date">Date: <strong>Oct 22</strong></span>
+                <span class="via-date">Time: <strong>02:30 am</strong></span>
+                <span class="via-date">Flight: <strong>P472 8</strong></span>
+              </div>
+            </li>
+            <li>
+              <div class="intransit-detail-list-inner">
+                <span class="via-airport-name">MCO</span>
+              </div>    
+              <div class="via-detail">
+                <span class="via-name">Daytona Beach, florida</span>
+                <span class="via-date">Date: <strong>Oct 22</strong></span>
+                <span class="via-date">Time: <strong>02:30 am</strong></span>
+                <span class="via-date">Flight: <strong>P472 8</strong></span>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+        <!--/Intransit Detail part-->
+        
+        <!-- <h3 class="info-heading">Other Information</h3>
+        <span class="info-text01">Status of the paperwork: Completed</span>
+				<span class="info-text01">Countdown days to departure: 1 Day</span> -->
+        
+		
+		<div class="google-map"> <div class="map-pic" id="map_canvas" style="height:400px;"></div> </div>
+		
+		
+		<div class="dashboard-footer">
+			<span class="footer-label">If you have any concern with the information related to your move, please contact:</span>
+			<span class="footer-label">Email: <a href="mailto:info@airanimal.com" style="text-decoration:underline;">info@airanimal.com</a></span>
+			<span class="footer-label">Tampa: <a href="tel:(813)-879-3210" style="text-decoration:underline;">(813)-879-3210</a> / <a href="tel:(800) 635-3448" style="text-decoration:underline;">(800) 635-3448</a></span>
+			<span class="footer-label">Orlando: <a href="tel:(407) 985-4674" style="text-decoration:underline;">(407) 985-4674</a> / <a href="tel:(844) 632-7930" style="text-decoration:underline;">(844) 632-7930</a></span>
+		</div>
+		
+    </div>
+  
+  
+  </div>
+<!-- Dashboard --> 
+
+<!-- My Profile -->
+		<div data-role="page" id="profile">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+			<h1>My Profile</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">         
+                	<!-- <h2>Personal Info</h2> -->
+                    <form method="post" onsubmit="return false;" name="profile-form">
+					<div class="info-panel">
+					<h2 class="table-heading">Personal Information</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong> Name </strong>
+							<input name="CONTACT" value="" type="text" placeholder="" readonly>
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Email ID</strong>
+							<input name="s_email" value="" type="email" placeholder="" readonly>
+                            <span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Address1</strong>
+						    <input name="ADDRESS1" value="" type="text" placeholder=""  maxlength="40">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Address2</strong>
+							<input name="ADDRESS2" value="" type="text" placeholder="" maxlength="40">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>City</strong>
+							<input name="CITY" value="" type="text" placeholder="" maxlength="30">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>State</strong>
+							<select name="STATE">
+							</select>
+							<!--<input name="STATE" value="" type="text" placeholder="" maxlength="30" readonly>-->
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Zip</strong>
+							<input name="ZIP" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Country</strong>
+							<select name="COUNTRY">
+							</select>
+							<!--<input name="COUNTRY" value="" type="text" placeholder="" maxlength="30" readonly>-->
+						  </td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Other Information</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong> Primary Phone </strong>
+							<input name="PHONE1" value="" type="tel" placeholder="" maxlength="25">
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Secondary Phone</strong>
+							<input name="PHONE2" value="" type="tel" placeholder="" maxlength="25">
+                            <span class="error-message"></span>	
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Mobile</strong>
+						    <input name="PHONE3" value="" type="tel" placeholder="" maxlength="25">
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Fax</strong>
+							<input name="FAX" value="" type="tel" placeholder="" maxlength="25">  
+							<span class="error-message"></span>							
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Preferred pick-up date</strong>
+							<input name="UPUDATE" value="" type="text" placeholder="" class="calendar date-input-css curdate" readonly>  
+							<span class="error-message"></span>							
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Preferred delivery date</strong>
+							<input name="UDLDATE" value="" type="text" placeholder="" class="calendar date-input-css curdate" readonly>  
+							<span class="error-message"></span>							
+						  </td>
+						</tr>
+						
+					  </tbody>
+					</table>
+					<button class="submit-button ui-btn ui-corner-all" onClick="updateMyProfile();">Update</button>
+					<button type="reset" class="reset-button ui-btn ui-corner-all" onclick="$.mobile.changePage('#home',{transition:'flip'});">Cancel</button>	
+                    	</div>
+						   </form>             
+            </div>
+        </div>      
+<!-- My Profile -->
+
+<!-- Add-Edit Pet Profile -->
+		<div data-role="page" id="pet-profile">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+            <a href="#pet-profile-listing" class="back-arrow ui-btn-right"><i class="material-icons">keyboard_arrow_left</i></a>
+			<h1>Pet Profile</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">   
+            		<div class="profile-img profile-img-02">
+            		<p style="position:relative;"><img src="images/dog3.jpg" alt="" title="" class="circle-img" id="profile-pet-image" />
+					<a href="#popupPadded" data-rel="popup" class="ui-btn-icon-left ui-icon-camera camera-icon" data-transition="pop">&nbsp;</a></p>      
+					<!-- <a href="javascript:void(0);"  class="ui-btn-icon-left ui-icon-camera camera-icon" onclick="getPicture('camera');">&nbsp;</a></p>    -->   
+                    </div>
+					<div  data-role="popup" id="popupPadded" class="ui-content">
+					<p><div>
+					<button class="ui-btn ui-corner-all" onclick="getPicture('camera');">Take a picture</button>
+					<button class="ui-btn ui-corner-all" onclick="getPicture('gallery');">Choose from gallery</button>
+					</div></p>
+					</div>
+                	<!-- <h2>General Info</h2> -->
+                    <form onsubmit="return false;" name="pet-profile-form" id="pet-profile-form">
+                    	
+					<div class="info-panel">
+					<h2 class="table-heading">General Information</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong> Pet Name </strong>
+							<input name="UPETNAME" value="" type="text" placeholder="" maxlength="30">
+							<span class = "error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Sex</strong>
+							<select name="USEX">
+								<option value=""></option>
+							</select>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Species</strong>
+						  
+							<select name="USPECIES">
+								<option value=""></option>
+							</select>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Breed</strong>
+							<select name="UBREED">
+								<option value=""></option>
+							</select>
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr style="display:none;" class="other-breed">
+						  <td>
+							<strong>Breed Name:</strong>
+							<input name="UBREED2" value="" type="text" placeholder="">
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Age</strong>
+							<!-- <input name="UAGE" value="" type="text" placeholder=""  class="calendar date-input-css dob" readonly> -->
+							<input name="UAGE" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Color</strong>
+							<!--<input name="UCOLOR" value="" type="text" placeholder="" maxlength="25">-->
+							<select name="UCOLOR">
+								<option value=""></option>
+							</select>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Height (inches)</strong>
+							<input name="UHEIGHT" value="" type="text" placeholder="" maxlength="10">
+
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Length (inches)</strong>
+							<input name="ULENGTH" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Weight (lbs)</strong>
+							<input name="UWEIGHT" value="" type="text" placeholder="" maxlength="8">
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Temperament</strong>
+							<input name="UTEMP" value="" type="text" placeholder="" maxlength="20">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Food Preference</strong>
+							<input name="UFOOD" value="" type="text" placeholder="" maxlength="25">
+						  </td>
+						</tr>
+                                                <tr>
+                                                  <td>
+							<strong>Health Certificate Issue Date</strong>
+							<input name="UHCERT" value="" type="text" placeholder="" class="date-input-css" readonly>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>
+							<strong>Health Certificate Expiry Date</strong>
+							<input name="UHCEXP" value="" type="text" placeholder="" class="date-input-css" readonly>
+                                                  </td>
+                                                </tr>
+						<tr>
+						  <td>
+							<strong>Medication</strong>
+							<input name="UMEDS" value="" type="text" placeholder="" maxlength="25">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Kennel (L x W x H)</strong>
+							<select name="UKENNEL">
+								<option value=""></option>
+							</select>
+							<!--<input name="UKENNEL" value="" type="text" placeholder="" readonly>-->			  
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Flown Before</strong>
+							<select name="USERDEF">
+								<option value=""></option>
+							</select>
+							<span class="error-message"></span>
+						  </td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Microchip</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong>Manufacturer</strong>
+							<select name="UCHIP">
+								<option value=""></option>
+							</select>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Microchip Number</strong>
+							<input name="UMCSERNB" value="" type="text" placeholder="" maxlength="34">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Date (mm/dd/yy)</strong>
+							<input type="text" name="UMCIMPDT" class="calendar date-input-css yearCal" value="" data-role="date" readonly>
+						  </td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Rabies vaccination</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong>Date (mm/dd/yy)</strong>
+							<input type="text" name="URABVAC" class="calendar date-input-css yearCal" value="" data-role="date" readonly>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Expiry Date (mm/dd/yy)</strong>
+							<input type="text" name="URVEXP" class="calendar date-input-css yearCal" value="" data-role="date" readonly>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Manufacturer</strong>
+							<input name="URVMFR" value="" type="text" placeholder="" maxlength="15">
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Serial</strong>
+							<input name="URVSERNB" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+                        <tr>
+						  <td>
+							<strong>FAVN-OIE (Rabies Antibody Blood Draw)</strong>
+							<input name="UFAVN" readonly="readonly" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Multi-Booster</h2>
+
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong>Date (mm/dd/yy)</strong>
+							<input type="text" name="UMULTIB" class="calendar date-input-css yearCal" value="" data-role="date" readonly>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Expiry Date (mm/dd/yy)</strong>
+							<input type="text" name="UMBEXP" class="calendar date-input-css yearCal" value="" data-role="date" readonly>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Serial</strong>
+							<input name="UMBSERNB" value="" type="text" placeholder="" maxlength="10">
+						  </td>
+						</tr>
+					  </tbody>
+					</table>
+				 </div>
+					<button class="submit-button ui-btn ui-corner-all" onclick="updatePetDetails($(this));" petId="" id="petUpdate" petAction= "">Update</button>
+					<button type="reset" class="reset-button ui-btn ui-corner-all" onclick="$.mobile.changePage('#pet-profile-listing',{transition:'flip'});">Cancel</button>
+				 </form>             
+            </div>
+        </div>      
+<!-- Pet Profile -->
+
+
+<!-- Pet Document Form -->
+		<div data-role="page" id="add-edit-pet-document">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+            <a href="#pet-document-listing" class="back-arrow ui-btn-right"><i class="material-icons">keyboard_arrow_left</i></a>
+			<h1>Document</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">   
+            		
+                    <form onsubmit="return false;" name="pet-document-form">
+						<div class="info-panel">
+							<table class="info-table ui-table ui-table-reflow">
+							  <tbody>
+								<tr>
+								  <td>
+									<strong>Pet Name</strong>
+									<select name="pet_id">
+										<option value="">-----</option>
+									</select>
+									<span class = "error-message"></span>
+								  </td>
+								</tr>
+								<tr>
+								  <td>
+									<strong>Category</strong>
+									<select name="cat_id" data-role="select">
+										<option value="">------</option>
+									</select>
+									<span class = "error-message"></span>
+								  </td>
+								</tr>
+								<tr>
+								  <td>
+									<strong>Title</strong>
+									<input name="s_title" value="" type="text" placeholder="">
+									<span class = "error-message"></span>
+								  </td>
+								</tr>
+								<tr>
+								  <td>
+									<strong>Upload Document (pdf, jpg, png)</strong>
+									<input name="s_file_name" value="" type="file" placeholder="" id="s_file_name">
+									<input type="hidden" value="" id="file-url" name="file-url">
+									<span class = "error-message"></span>
+									<span class="discription-text01 u_document"></span>
+								  </td>
+								</tr>
+							  </tbody>
+							</table>
+							<button class="submit-button ui-btn ui-corner-all" doc_id="" id="doc-action" onclick="modifyPetDocument()">Update</button>
+							<button type="reset" class="reset-button ui-btn ui-corner-all" onclick="$.mobile.changePage('#pet-document-listing',{transition:'flip'})">Cancel</button>
+						</div>
+                    	
+					  </form>             
+            </div>
+        </div>      
+<!-- Pet Document Form -->
+
+<!-- pet Document listing ------>
+<div data-role="page" id="pet-document-listing"> 
+    <!-- Header -->
+    <div data-role="header" class="doc-header"> <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+    <h1>Documents</h1>
+	</div>
+    <!-- body -->
+    <div data-role="main" class="pet-profile-listing ui-content" >
+    <ul class="my-favorite-cv-list swipe-show pet-document-list" >
+	
+	 </ul>
+	 <!-- <div class="drag-btn"><a href="#" class="add-icon add-pet" style="display:none;"><i class="material-icons md-48">add_circle</i></a></div> -->
+	<div class="drag-btn"> <a href="javascript:void(0);" class="add-icon add-doc" onclick="" style="display:none;"><i class="material-icons md-48">add_circle</i></a> </div>
+  </div>
+</div>
+<!-- pet document listing ------>
+
+<!-- View Pet Profile -->
+		<div data-role="page" id="pet-profile-detail">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+            <a href="#pet-profile-listing" class="back-arrow ui-btn-right" ><i class="material-icons">keyboard_arrow_left</i></a>
+			<h1>Pet Profile</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">   
+			<div class="profile-img">
+				<p><img src="images/dog3.jpg" alt="" title="" class="circle-img" id="profile-pet-image-view" /></p>      
+			</div>
+			
+			<form onsubmit="return false;" name="pet-profile-form" >
+				<div class="info-panel">
+					<h2 class="table-heading">General Information</h2>
+
+					<table class="info-table view-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>Pet Name</td>
+						  <td class="pet-UPETNAME"></td>
+						</tr>
+						<tr>
+						  <td>Sex</td>
+						  <td class="pet-USEX"></td>
+						</tr>
+						<tr>
+						  <td>Species</td>
+						  <td class="pet-USPECIES"></td>
+						</tr>
+						<tr>
+						  <td>Breed</td>
+						  <td class="pet-UBREED"></td>
+						</tr>
+						<tr>
+						  <td>Age</td>
+						  <td class="pet-UAGE"></td>
+						</tr>
+						<tr>
+						  <td>Color</td>
+						  <td class="pet-UCOLOR"></td>
+						</tr>
+						<tr>
+						  <td>Height(inches)</td>
+						  <td class="pet-UHEIGHT"></td>
+						</tr>
+						<tr>
+						  <td>Length(inches)</td>
+						  <td class="pet-ULENGTH"></td>
+						</tr>
+						<tr>
+						  <td>Weight(lbs)</td>
+						  <td class="pet-UWEIGHT"></td>
+						</tr>
+						<tr>
+						  <td>Temperament</td>
+						  <td class="pet-UTEMP"></td>
+						</tr>
+						<tr>
+						  <td>Food Preference</td>
+						  <td class="pet-UFOOD"></td>
+						</tr>
+						<tr>
+						  <td>Health Certificate Issue Date</td>
+						  <td class="pet-UHCERT"></td>
+						</tr>
+						<tr>
+						  <td>Health Certificate Expiry Date</td>
+						  <td class="pet-UHCEXP"></td>
+						</tr>
+						<tr>
+						  <td>Medication</td>
+						  <td class="pet-UMEDS"></td>
+						</tr>
+						<tr>
+						  <td>Kennel</td>
+						  <td class="pet-UKENNEL"></td>
+						</tr>
+						<tr>
+						  <td>Flown Before</td>
+						  <td class="pet-USERDEF"></td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Microchip</h2>
+
+					<table class="info-table view-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>Manufacturer</td>
+						  <td class="pet-UCHIP"></td>
+						</tr>
+						<tr>
+						  <td>Microchip Number</td>
+						  <td class="pet-UMCSERNB"></td>
+						</tr>
+						<tr>
+						  <td>Date</td>
+						  <td class="pet-UMCIMPDT"></td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Rabies vaccination</h2>
+
+					<table class="info-table view-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>Date</td>
+						  <td class="pet-URABVAC"></td>
+						</tr>
+						<tr>
+						  <td>Expiry Date</td>
+						  <td class="pet-URVEXP"></td>
+						</tr>
+						<tr>
+						  <td>Manufacturer</td>
+						  <td class="pet-URVMFR"></td>
+						</tr>
+						<tr>
+						  <td>Serial</td>
+						  <td class="pet-URVSERNB"></td>
+						</tr>
+						<tr>
+							<td>FAVN-OIE (Rabies Antibody Blood Draw)</td>
+							<td class="pet-UFAVN"></td>
+						</tr>
+					  </tbody>
+					</table>
+					
+					<h2 class="table-heading">Multi-Booster</h2>
+
+					<table class="info-table view-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>Date</td>
+						  <td class="pet-UMULTIB"></td>
+						</tr>
+						<tr>
+						  <td>Expiry Date</td>
+						  <td class="pet-UMBEXP"></td>
+						</tr>
+						<tr>
+						  <td>Serial</td>
+						  <td class="pet-UMBSERNB"></td>
+						</tr>
+					  </tbody>
+					</table>
+				 </div>
+							  
+			  </form>             
+            </div>
+        </div>      
+<!-- View Pet Profile -->
+<!-- Pet Profile Listing -->
+<div data-role="page" id="pet-profile-listing"> 
+    <!-- Header -->
+    <div data-role="header"> <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+    <h1>Pet Profiles</h1>
+  </div>
+    <!-- body -->
+    <div data-role="main" class="pet-profile-listing ui-content" >
+    <ul class="my-favorite-cv-list swipe-show pet-profile-list">
+	
+	  </ul>
+	 <div class="drag-btn"><a href="javascript:void(0);" class="add-icon add-pet" style="display:none;"><i class="material-icons md-48">add_circle</i></a></div>
+  </div>
+ </div>
+<!-- Pet Profile Listing --> 
+
+<!-- Veterinarian Info -->
+		<div data-role="page" id="veterinarian-info">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+			<h1>Veterinarian Information</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="veterinarian-info ui-content">         
+                    <form  method="post" name="vet-info-form" onsubmit="return false;" novalidate>
+						<div class="info-panel">
+						<!-- <h2 class="table-heading">Rabies vaccination</h2> -->
+						<table class="info-table ui-table ui-table-reflow">
+						  <tbody>
+							<tr>
+							  <td>
+								<strong>Contact Name</strong>
+								<input name="UVCONTACT" value="" type="text" placeholder="" maxlength="40">
+								<span class="error-message"></span>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Hospital Name</strong>
+								<input name="UVPRACNAME" value="" type="text" placeholder="" maxlength="40">
+								<span class="error-message"></span>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Address</strong>
+								<input name="UVADDR1" value="" type="text" placeholder="" maxlength="40">
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>City</strong>
+								<input name="UVCITY" value="" type="text" placeholder="" maxlength="30">
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>State</strong>
+								<select name="UVSTATE">
+								</select>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Zip</strong>
+								<input name="UVZIP" value="" type="text" placeholder="" maxlength="15">
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Fax</strong>
+								<input name="UVFAX" value="" type="text" placeholder="" maxlength="15">
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Telephone</strong>
+								<input name="UVPHONE" value="" type="tel" placeholder="" maxlength="20">
+								<span class="error-message"></span>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<strong>Email</strong>
+								<input name="UVEMAIL" value="" type="email" placeholder="" maxlength="50">
+								<span class="error-message"></span>
+							  </td>
+							</tr>
+						  </tbody>
+						</table>
+						<button class="submit-button ui-btn ui-corner-all" onclick="updateVetInfo();">Update</button>
+						<button type="reset" class="reset-button ui-btn ui-corner-all" onclick="$.mobile.changePage('#home',{transition:'flip'});">Cancel</button>
+						</div>
+						
+					   </form>             
+            </div>
+        </div>      
+<!-- Veterinarian Info -->
+
+<!-- Travel Plan -->
+		<div data-role="page" id="travel-plan">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+			<h1>Travel Plan</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">   
+                	
+                    <form method="post" onsubmit="return false;" name="travel-plan-form">
+                    	<div class="info-panel">
+						<h2 class="table-heading">Origin</h2>
+
+						<table class="info-table view-table ui-table ui-table-reflow">
+						  <tbody>
+							<tr>
+							  <td>Origin Address</td>
+							  <td class="travel-ADDRESS1"></td>
+							</tr>
+							<tr>
+							  <td>Origin Apt</td>
+							  <td class="travel-ADDRESS2"></td>
+							</tr>
+							<tr>
+							  <td>Origin City</td>
+							  <td class="travel-CITY"></td>
+							</tr>
+							<tr>
+							  <td>Origin State</td>
+							  <td class="travel-STATE"></td>
+							</tr>
+							<tr>
+							  <td>Origin Zip</td>
+							  <td class="travel-ZIP"></td>
+							</tr>
+							<tr>
+							  <td>Origin Country</td>
+							  <td class="travel-COUNTRY"></td>
+							</tr>
+						  </tbody>
+						</table>
+					
+						<h2 class="table-heading">Destination</h2>
+						<span class="submited-text">* Submitted by Your Pet Mover</span>
+                          <table class="info-table  ui-table ui-table-reflow">
+						  <tbody>
+                            
+							<tr>
+							  <td>Destination Address</td>
+	                          <td class="travel-URADD11"><input maxlength="30" type="text" id="travel_uradd1" class="destination_text" /></td>
+							</tr>
+							<tr>
+							  <td>Destination Apt</td>
+							  <td class="travel-URADD21"><input maxlength="14" type="text" id="travel_uradd2" class="destination_text" /></td>
+							</tr>
+							<tr>
+							  <td>Destination City</td>
+							  <td class="travel-URCITY1"><input maxlength="30" type="text" id="travel_urcity" class="destination_text" /></td>
+							</tr>
+							<tr>
+							  <td>Destination State</td>
+						  <td class="travel-URST1"><input maxlength="3" type="text" id="travel_urst" class="destination_text" /></td>
+							</tr>
+							<tr>
+							  <td>Destination Zip</td>
+							  <td class="travel-URZIP1"><input maxlength="10" type="text" id="travel_urzip" class="destination_text" /></td>
+							</tr>
+                            <tr>
+							  <td>Destination Country</td>
+							  <td class="travel-UDESTCTY1"><input maxlength="20" type="text" id="travel_udestcty" class="destination_text" /></td>
+                          </tr>
+                            <tr>
+							  <td>Destination Phone</td>
+							  <td class="travel-UPHONE41"><input maxlength="25" type="text" id="travel_uphone4" class="destination_text" /></td>
+							</tr>
+                            <tr>
+                              <td colspan="2"><button type="submit" class="submit-button ui-btn ui-corner-all" onclick="save_destination();" id="edit_dest_details">Update Destination Information</button></td>
+                            </tr>
+						  </tbody>
+						</table>
+					                                                 
+						<h2 class="table-heading">Other Information</h2>
+						<span class="submited-text">* Submitted by Your Pet Mover</span>
+                          <table class="info-table view-table ui-table ui-table-reflow">
+						  <tbody>
+							<tr>
+							  <td>AWB</td>
+							  <td class="travel-UAIRCODE"></td>
+							</tr>
+							<tr>
+							  <td>Relocation Purpose</td>
+							  <td class="travel-URELOCPUR"></td>
+							</tr>
+							<tr>
+							  <td>Flight Date</td>
+							  <td class="travel-UOTRDATE"></td>
+							</tr>
+							<tr>
+							  <td>Movers Plan Date</td>
+							  <td class="travel-UPLDATES"></td>
+							</tr>
+							<tr>
+							  <td>Delivery Date</td>
+							  <td class="travel-UDUDATE"></td>
+							</tr>
+							<tr>
+							  <td>Main Airline</td>
+							  <td class="travel-UAIRLINE"></td>
+							</tr>
+							<tr>
+							  <td>Origin Airport</td>
+							  <td class="travel-UOAIRPRT"></td>
+							</tr>
+							<tr>
+							  <td>Conn Airport</td>
+							  <td class="travel-UROUTE"></td>
+							</tr>
+							<tr>
+							  <td>Destination Airport</td>
+							  <td class="travel-URAIRPRT"></td>
+							</tr>
+						  
+						  </tbody>
+						</table>
+					                                                 
+                         </div>
+                         
+                        
+					   </form>             
+            </div>
+        </div>      
+<!-- Travel Plan -->
+
+<!-- Document Details -->
+		<div data-role="page" id="document-detail-page">
+        	<!-- Header -->
+            <div data-role="header">
+            <a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+            <a href="#pet-document-listing" class="back-arrow ui-btn-right" ><i class="material-icons">keyboard_arrow_left</i></a>
+			<h1>Pet Document Details</h1>
+            </div>
+            <!-- body -->
+            <div data-role="main" class="my-profile ui-content">   
+                	
+                    <form method="post" onsubmit="return false;" name="doc-view-form">
+                    	<div class="info-panel">
+						<!-- <h2 class="table-heading">Pet Document Details</h2> -->
+
+						<table class="info-table view-table ui-table ui-table-reflow">
+						  <tbody>
+							<tr>
+							  <td>Pet Name</td>
+							  <td class="doc-petname"></td>
+							</tr>
+							<tr>
+							  <td>Category</td>
+							  <td class="doc-category"></td>
+							</tr>
+							<tr>
+							  <td>Title</td>
+							  <td class="doc-s_title"></td>
+							</tr>
+							<tr>
+							  <td>Document</td>
+							  <td class="doc-fileType">
+					<!-- <img src="https://maxcdn.icons8.com/Android_L/PNG/24/Messaging/download-24.png" title="Download" width="20"> --></td>
+						
+							</tr>
+						  </tbody>
+						</table>
+					
+						     </div>                                     
+                         
+                         
+                        <input type="hidden" name="docUrl" id="docUrl" value="">
+                        <input type="hidden" name="docFile" id="docFile" value="">
+					   </form> 
+				</div>					   
+            </div>
+<!-- Document Details -->
+
+<!-- Change Password -->
+	<div data-role="page" id="change-password">
+		<!-- Header -->
+		<div data-role="header">
+		<a href="#menu" class="back-arrow"><i class="material-icons">menu</i></a>
+		<h1>Change Your Password</h1>
+		</div>
+		<!-- body -->
+		<div data-role="main" class="my-profile ui-content">   
+				
+			<form onsubmit="return false;" name="change-password-form">
+				<div class="info-panel">
+					<table class="info-table ui-table ui-table-reflow">
+					  <tbody>
+						<tr>
+						  <td>
+							<strong>Current Password</strong>
+							<input type="password" name="password" value="" autocomplete="off">
+							<span class = "error-message"></span>
+							
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>New Password </strong><span class="view-password">Show Password</span>
+							<input type="password" name="new_password" value="" autocomplete=off>
+							<span class = "error-message"></span>
+							
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+							<strong>Confirm Password</strong>
+							<input type="password" name="c_password" value="" autocomplete=off>
+							<span class = "error-message"></span>
+						  </td>
+						</tr>
+						
+					  </tbody>
+					</table>
+					<button class="submit-button ui-btn ui-corner-all" onclick="changePassWord()">Update</button>
+					<button type="reset" class="reset-button ui-btn ui-corner-all" onclick="$.mobile.changePage('#home',{transition:'flip'})">Cancel</button>
+				</div>
+				
+			  </form>             
+		</div>
+	</div>   
+<!-- Change Password -->
+<!-- Menu -->
+	<div data-role="panel" id="menu" data-position="left" data-display="overlay" data-theme="a" style="z-index:99999;">
+    <!--Menu header-->
+    <div class="menu-header-container" onclick="$.mobile.changePage('#home',{transition:'flip'});">
+        <h1 class="user-name"></h1>
+        <p class="user-address"></p>
+    </div>
+    <!--/Menu header-->
+    
+    <ul class="main-menu">
+        <li><span><img src="https://png.icons8.com/material/1x/home.png" title="My Profile" width="24"></span><a href="#home" data-transition="flip" class="ui-link my-home-link">Home</a></li>
+        <li id="crash_menu"><span><img src="https://png.icons8.com/windows/1x/ios-app-icon-shape.png" title="Crash App" width="24"></span><a href="#" onclick="crash_app();" data-transition="flip" class="ui-link my-profile-link">Crash App</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Users/user-24.png" title="My Profile" width="24"></span><a href="#profile" data-transition="flip" class="ui-link my-profile-link">My Profile</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/User_Interface/cat_profile-24.png" title="Pet Profile" width="24"></span><a href="#pet-profile-listing" data-transition="flip" class="ui-link pet-link">Pet Profiles</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Healthcare/medical_doctor-24.png" title="Medical Doctor" width="24"></span><a href="#veterinarian-info" data-transition="flip" class="ui-link vet-link">Veterinarian Information</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Transport/airplane_takeoff-24.png" title="Airplane Take Off" width="24"></span><a href="#travel-plan" data-transition="flip" class="ui-link travel-link">Travel Plan</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Very_Basic/file-24.png" title="Document" width="24"></span><a href="#pet-document-listing" data-transition="flip" class="ui-link document-link" >Documents</a></li>
+		<li><span><img src="https://maxcdn.icons8.com/windows8/PNG/26/Security/password-26.png" title="Change Password" width="24"></span><a href="#change-password" data-transition="flip" class="ui-link password-link" >Change Password</a></li>
+        <li><span><img src="https://maxcdn.icons8.com/Android_L/PNG/24/User_Interface/logout_rounded-24.png" title="Logout Rounded" width="24"></span><a href="javascript:void(0);" onclick="logout()" class="ui-link">Logout</a></li>
+		<li><span><img src="https://png.icons8.com/material-two-tone/50/000000/about.png" title="About" width="24"></span><a href="javascript:void(0);" onclick="showAboutDialog()" class="ui-link about-link">About</a></li>
+	</ul>
+</div>
+<!-- Menu -->
+</body>
+</html>
